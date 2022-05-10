@@ -1,0 +1,157 @@
+
+.navigation{
+    background: linear-gradient( #051e34 ,#051e34) !important;
+  }
+  a{
+    text-decoration: none;
+  }
+
+  
+  .body{
+    background-color: white;
+  }
+  .body .container{
+    display: flex;
+    justify-content: space-between;
+  }
+
+ .body .container  .left  img{
+    width: 400px;
+  }
+  .body .container  .right{
+    width: 600px;
+    border: 1px solid #1c3f5d53;
+    border-radius: 20px;
+    text-align: center;
+    padding: 30px;
+    
+  }
+  .body .container  .right h3{
+    color: #1c3f5d;
+  }
+  .body .container  .right h3  span{
+    color: #1c3f5d !important ;
+   }
+
+  .body .container  .right form  .cont{
+    display: flex;
+    justify-content: space-between;
+  }
+  .parent-div {
+    position: relative;
+    overflow: hidden;
+  }
+  .parent-div .btn{
+    background-color: #051e34;
+    cursor: pointer;
+  }
+  .parent-div input[type=file] {
+    left: 0;
+    top: 0;
+    opacity: 0;
+    position: absolute;
+    font-size: 90px;
+  }
+
+  .btn{
+      background-color: #051e34;
+  }
+  
+  @media screen and (max-width: 1000px) {
+    .body{
+      background-color: white;
+    }
+    .body .container{
+        margin: 0;
+        display: flex;
+        justify-content: space-between;
+      }
+
+     .body .container .right{
+        width: 450px;
+        height: auto;
+        border: 1px solid #1c3f5d53;
+        border-radius: 20px;
+        text-align: center;
+        padding: 30px;
+      }
+      .body .container .right form .cont{
+          display: block;
+          justify-content: space-between;
+      }
+      .body .container .right h3{
+        color: #1c3f5d;
+      }
+      .body .container .right h3 span{
+        color: #1c3f5d !important ;
+       }
+       .body .container .left {
+        margin-top: 500px;
+      }
+     .body .container  .left img{
+        width: 500px;
+      }
+  }
+  
+  @media screen and (max-width: 600px) {
+  
+  .body .container{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+
+  }
+
+  .body .container  .right{
+    z-index: 100 !important;
+    width: 100%;
+  }
+
+  .body .container  .right form button{
+      color: white;
+      background-color: #051e34;
+    
+   }
+
+  .body .container  .right h3{
+    color: #1c3f5d;
+ 
+  }
+
+  .body .container  .right h3   span{
+    color: #1c3f5d !important ;
+   }
+
+  .body .container .left{
+    width: 100%;
+
+    overflow: hidden;
+    display: block;
+    position: absolute;
+  }
+
+  .body .container .left  img{
+    transform: scaleX(-1);
+    opacity: 0.3;
+    object-fit: cover;
+    height: 550px;
+  }
+
+  .body .brand  .un{
+    font-size: 200%;
+  }
+  .body .brand  .deux{
+    font-size: 100%;
+  }
+  
+
+}
+
+
+#submit{
+    color: white;
+    background-color: #051e34;
+  }
+
+  
+  

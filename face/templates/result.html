@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bont_Id</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap/dist/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-icons/font/bootstrap-icons.css'%}">
+    <link rel="stylesheet" href="{% static 'css/choice.css'%}">
+
+</head>
+<body>
+    
+    <div class="navigation">
+        <nav class="navbar navbar-dark  bg-purple">
+            <div class="container-fluid">
+              <span class="navbar-brand float-rigth mb-0 h1"><a href="{% url 'start' %}">bont_id</a></span>
+             
+            </div>
+        </nav>
+      </div>
+    
+  
+      <div class="container-fluid">
+  
+          <div class="cont">
+            <h3>Résultat</h3>
+            <p>nom: {{identite.name}}</p>
+            <p>email: {{identite.email}}</p>
+            <p>detail: {{identite.detail}}</p>
+            <p>tel: {{identite.tel}}</p>
+            
+              
+          </div>
+        <div class="img">
+          <img src="{% static identite.image1 %}" alt="">
+        </div>
+  
+      </div>
+
+  
+</body>
+</html>

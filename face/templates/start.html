@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bont_id</title>
+  <link rel="stylesheet" href="{% static 'css/bootstrap/dist/css/bootstrap.min.css'%}">
+  <link rel="stylesheet" href="{% static 'css/bootstrap-icons/font/bootstrap-icons.css'%}">
+  <link rel="stylesheet" href="{% static 'css/start.css'%}">
+</head>
+<body>
+
+  <div class="navigation  fixed-top">
+    <nav class="navbar navbar-dark  bg-purple">
+        <div class="container-fluid">
+          <span class="navbar-brand float-rigth mb-0 h1"><a href="{% url 'start' %}">bont_id</a></span>
+          <a href="">Apropos</a>
+          <a href="{% url 'add' %}">add ID</a>
+          <form class="d-flex">
+              <a  class="search" ><i class="bi bi-search"></i></a>
+          </form>
+          
+          <button  type="button" class="btn btn-primary"><a href="{% url 'choice' %}">Commencer</a></button>
+          <button  type="button" class="btn btn-primary">Sign-in</button>
+        </div>
+    </nav>
+  </div>
+  <br><br><br><br>
+  <div class="container">
+    
+    <div class="tete">
+      <img class="image1" src="../../static/assets/id.jpg" alt="">
+      <h3>BONT ID</h3>
+      <p>La plate forme de reconnaissance faciale pour les étudiants et par les étudiants</p>
+      <button  type="button" class="btn btn-primary"><a href="{% url 'choice' %}">Commencer</a></button>
+      <button  type="button" class="btn btn-primary">Sign-in</button>
+      <div class="image2">
+        <img src="../../static/assets/image2.png" alt="">
+    </div>
+    </div>
+  
+    <div  class=" detaille det1 d-flex">
+      <div class="detail1">
+        <h6>Conçu par les étudiants</h6>
+        <h4>La reconnaissance faciale dans le navigateur</h4>
+        <p>Avec les applications comme la reconnaissance faciale, l'identication, BONT ID vous aide à sortir de l'inconnu et à tirer le meilleur parti de votre navigateur.</p>
+        <a class="text-primary" href="">Découvrir les outils ID <i class="bi bi-arrow-right"></i></a>
+      </div>
+      <div>
+        <img class="img1"  src="../../static/assets/image2.webp" alt="">
+      </div>
+    </div>
+  
+    <div class="detaille det d-flex">
+      <div>
+        <img class="img2" src="../../static/assets/image3.jpg" alt="">
+      </div>
+      <div class="detail2">
+        <h6>Rechercher une personne</h6>
+        <h4>Outils de recherches avancés </h4>
+        <p>Effectuer des recherche dans notre grande base de donnée et optenez des information les intimes sur une personne .</p>
+        <a class="text-primary" href="">Découvrir les outils ID <i class="bi bi-arrow-right"></i></a>
+      </div>
+    </div>
+  
+    <div class="plus">
+      <h6>Toujours plus avec BONT ID</h6>
+      <h3>Découvrez d'autres outils et ressources</h3>
+    </div>
+  
+  
+    <div class="">
+      <button class="btn card">
+        <div class="card-text">
+          <h3>Rechercher une personne</h3>
+          <p>quod deserunt eligendi dolor</p>
+        </div>
+         <button class="btn ">En savoir plus</button>
+        <br>
+      </button>
+
+      <button class="btn card">
+        <div class="card-text">
+          <h3>Identifier une personne</h3>
+          <p>quod deserunt eligendi dolor</p>
+        </div>
+        <button class="btn ">En savoir plus</button>
+        <br>
+      </button>
+
+      <button class="btn card">
+        <div class="card-text">
+          <h3>Rcherche et identification</h3>
+          <p>quod deserunt eligendi dolor</p>
+        </div>
+        <button class="btn ">En savoir plus</button>
+        <br>
+  
+      </button>
+    </div>
+  
+  </div>
+</body>
+</html>

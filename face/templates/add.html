@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bont_id</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap/dist/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-icons/font/bootstrap-icons.css'%}">
+    <link rel="stylesheet" href="{% static 'css/add.css'%}">
+</head>
+<body>
+    <div class="navigation  fixed-top">
+        <nav class="navbar navbar-dark  bg-purple">
+            <div class="container-fluid">
+              <span class="navbar-brand float-rigth mb-0 h1"><a href="{% url 'start' %}">bont_id</a></span>
+            </div>
+        </nav>
+      </div>
+      <br>
+
+      <div class="container">
+          <div class="body">
+          <br>
+              <br>
+              <div class="container">
+              <div class="left">
+                <img src="../../static/assets/image2.webp" alt="">
+              </div>
+
+              <div class="right ">
+                  <h3><span class="navbar-brand brand mb-0 h1"><span class="deux">Bont_Id</span></span></h3>
+                  <hr>
+                  <h3>Ajouter une identité</h3>
+                  <br>
+          
+                  <form  method="POST"  enctype="multipart/form-data">
+                    {% csrf_token %}
+                   <div class="cont">
+                      <div>
+                        <div class="form-floating mb-3">
+                          <input type="text" class="form-control" name="name"  placeholder="nom">
+                          <label for="floatingInput">name </label>
+                        </div>
+                        <div class="form-floating">
+                          <input type="tel" class="form-control" name="address" placeholder="address">
+                          <label for="floatingInput">address</label>
+                        </div>
+                        <p></p>
+                        <div class="form-floating">
+                          <input type="number" class="form-control" name="tel" placeholder="tel">
+                          <label for="floatingInput">Tel</label>
+                        </div>
+                        <p></p>
+                        
+                      </div>
+                      <br>
+                      <div>
+                        <div class="form-floating mb-3">
+                          <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                          <label for="floatingInput">Email</label>
+                        </div>
+                        
+                        <!-- <div>
+                          <br>
+                          <button type="button" id="modal" class="btn btn1"  data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Nombre d'image</button>
+                          <span> 0/5</span>
+                        </div> -->
+                      
+                        <div class="form-floating">
+                          <textarea class="form-control" name="detail" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                          <label for="floatingTextarea2">Details</label>
+                        </div>
+                        <P></P>
+                        <div class="parent-div">
+                          <button class="btn-upload btn btn-primary"><i class="bi bi-image-fill"></i> image 1</button>
+                          <input type="file" name="image1" accept="image/*" >
+                        </div>
+                        <div class="parent-div">
+                          <button class="btn-upload btn btn-primary"><i class="bi bi-image-fill"></i> image 2</button>
+                          <input type="file"  name="image2" accept="image/*" >
+                        </div>
+                        <div class="parent-div">
+                          <button class="btn-upload btn btn-primary"><i class="bi bi-image-fill"></i> image 3</button>
+                          <input type="file"  name="image3" accept="image/*" >
+                        </div>
+                      </div>
+                   </div>
+                   <br>
+                    <button id="submit" type="submit" class="btn ">Ajouter</button>
+                  </form>
+                  <br>
+                </div>
+          
+              </div>
+          
+          </div>
+          
+         
+          
+      </div>
+</body>
+</html>

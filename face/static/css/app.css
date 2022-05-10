@@ -1,0 +1,17 @@
+
+.navigation{
+    background: linear-gradient( #051e34 ,#051e34) !important;
+  }
+    .navigation i{
+      color: white
+    }
+    .btn{
+      color: white;
+      background: linear-gradient( #051e34 ,#051e34) ;
+    }
+  
+  a{
+    text-decoration: none;
+  }
+  
+  

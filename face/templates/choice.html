@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bont_Id</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap/dist/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-icons/font/bootstrap-icons.css'%}">
+    <link rel="stylesheet" href="{% static 'css/choice.css'%}">
+
+</head>
+<body>
+    
+    <div class="navigation">
+        <nav class="navbar navbar-dark  bg-purple">
+            <div class="container-fluid">
+              <span class="navbar-brand float-rigth mb-0 h1"><a href="{% url 'start' %}">bont_id</a></span>
+             
+            </div>
+        </nav>
+      </div>
+    
+  
+      <div class="container-fluid">
+  
+          <div class="cont">
+            <h3>Veuillez sélectionner la source de la vidéo</h3>
+            <div class="parent-div">
+              <button class="btn-upload btn btn-primary"><i class="bi bi-image-fill"></i> Galerie</button>
+              <input type="file" name="video" accept="video/*" >
+            </div>
+            <div class="parent-div">
+              <form action="" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn-upload btn btn-primary"><i class="bi bi-camera-fill"></i> Camera</button>
+              </form>
+              <!-- <input type="file" name="video" accept="video/*" capture>  -->
+            </div>
+          </div>
+        <div class="img">
+          <img src="../../static/assets/image2.png" alt="">
+        </div>
+  
+      </div>
+
+  
+</body>
+</html>
