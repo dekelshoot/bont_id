@@ -2,6 +2,7 @@ from cgitb import reset
 import re
 from django.shortcuts import render,redirect
 import cv2
+import shutil
 # Create your views here.
 
 from django.http import HttpResponse
@@ -27,10 +28,11 @@ def start(request):
 
 def choice(request):
     if request.method == 'POST':
-        name= "Dekel Shoot"
+        name=fr.main()
+        name=name[:-1].split("_")
+        name= " ".join(name)
         identite = Identite.objects.filter(name=name).get()
-        print(identite.image1)
-        # image= identite.image1    
+        #image= identite.image1    
         return render(request,'result.html',{'identite':identite})
     return render(request, 'choice.html')
 
@@ -46,6 +48,7 @@ def add(request):
             id=identite.id
             source=[]
             if(identite.image1):
+                saveProfil(identite.image1.path,identite.name)
                 source.append('media/'+str(identite.image1))
             if(identite.image2):
                 source.append('media/'+str(identite.image2))
@@ -59,26 +62,17 @@ def add(request):
             )
             return redirect("start")
         print(form.errors)
-        # dic=request.POST
-        #print(form['image'])
-
-        # image = request.FILES['image']
-        # prenom = request.POST['prenom']
-        # nom = request.POST['name']
-        # identité.objects.create(name=nom, prenom=prenom, image=image)
-        # print(request.FILES['image'])
-        #extraction()
     return render(request, 'add.html')
+
 def rename(identite,image,id):
     name=identite.name+str(id)+"."+image.path.split(".")[-1]
     nametemp = name.split()
-    name=""
-    for i in nametemp:
-        name=name+i
+    name="_".join(nametemp)
     dir_path=os.path.dirname(os.path.realpath(image.path))
     a= os.path.join(dir_path,name)
     os.rename(image.path, a)
     return "images/"+name
+
 def renameProfil(name,src,id):
     name=name+str(id)+"."+src.split(".")[-1]
     name=name+str(1)
@@ -86,11 +80,24 @@ def renameProfil(name,src,id):
     a= os.path.join(dir_path,name)
     os.rename(image.path, a)
     return "images/"+name
+
 def get_image_path(self, filename):
     prefix = 'images/'
     name = self.name 
     extension = os.path.splitext(filename)[-1]
     return prefix + name + extension
+
+def saveProfil(src,name):
+    name=name+"1"
+    name= "_".join(name.split())
+    src2= src.split("media")
+    newsrc=src2[0]+'face\static`\`'+src2[-1].split("media")[-1]
+    newsrc = newsrc.replace("`","")
+    shutil.copy2(src, newsrc)
+    dir_path=os.path.dirname(os.path.realpath(newsrc))
+    a= os.path.join(dir_path,name+"."+newsrc.split(".")[-1])
+    os.rename(newsrc, a)
+
 def scanface():
     cap=cv2.VideoCapture(0)
     face=cv2.CascadeClassifier('face/static/assets/model/haarcascade_frontalface_default.xml')
@@ -121,10 +128,6 @@ def extraction(imagesrc):
         for  x,y, width,height in faces:
             cv2.rectangle(image,(x,y),(x+width,y+height),color=(255,0,0),thickness=1)
             cv2.imwrite(src, image[y:y+height,x:x+width])
-def saveProfil(src):
-    image = cv2.imread(src)
-    path= "static/images"
-    cv2.imwrite(path,image)
     
 @gzip.gzip_page
 def Home(request):
