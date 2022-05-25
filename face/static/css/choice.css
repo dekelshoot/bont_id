@@ -6,7 +6,7 @@
   text-decoration: none;
   color: white;
   }
-  
+
   .parent-div {
     position: relative;
     overflow: hidden;
@@ -27,15 +27,18 @@
     margin-top: 30px;
     justify-content: space-between;
   }
+  .container-fluid .left{
+    margin-top: 300px;
+  }
   .container-fluid .cont{
-    text-align: center;
-    width: 40%;
-    margin-top: 100px;
-    margin-right: 0px;
+    /* text-align: center; */
+    /* width: 40%; */
+    /* margin-top: 1000px; */
+    /* margin-right: 0px; */
   }
   .container-fluid .cont  button{
-    margin-top: 10px;
-    width: 70%;
+    /* margin-top: 10px; */
+    /* width: 70%; */
   }
 
   .container-fluid  .img  img{
@@ -56,6 +59,7 @@
     .container-fluid{
       text-align: center;
     }
+
     .container-fluid .img{
         margin: 0 auto;
       }

@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="{% static 'css/bootstrap/dist/css/bootstrap.min.css'%}">
   <link rel="stylesheet" href="{% static 'css/bootstrap-icons/font/bootstrap-icons.css'%}">
   <link rel="stylesheet" href="{% static 'css/start.css'%}">
+  <script  src="{% static 'css/bootstrap/dist/js/bootstrap.min.js'%}"></script>
 </head>
 <body>
 
@@ -18,9 +19,7 @@
           <span class="navbar-brand float-rigth mb-0 h1"><a href="{% url 'start' %}">bont_id</a></span>
           <a href="">Apropos</a>
           <a href="{% url 'add' %}">add ID</a>
-          <form class="d-flex">
-              <a  class="search" ><i class="bi bi-search"></i></a>
-          </form>
+          <button data-bs-toggle="modal" data-bs-target="#exampleModal"  class="btn btn-modal " ><a  class="search" ><i class="bi bi-search"></i></a></button>
           
           <button  type="button" class="btn btn-primary"><a href="{% url 'choice' %}">Commencer</a></button>
           <button  type="button" class="btn btn-primary">Sign-in</button>
@@ -102,5 +101,42 @@
     </div>
   
   </div>
+
+
+   <!-- Modal -->
+ <div  class="modal  fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog   modal-dialog-centered">
+    <div  class="modal-content cont-modal">
+      <div class="modal-body">
+         <div style="display: flex; justify-content: space-between" class="head">
+              <h5 class="modal-title" id="exampleModalLabel">Recherche de ID</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+         
+          <br>
+          <div class="content">
+            <form action="" method="post">
+              {% csrf_token %}
+              <div class="input-group  form-group form-floating mb-3">
+                <input class="form-control" name="name" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." formControlName="lieu" >
+                <button style="background-color:#051e34; color:white;"   type="submit" id="purple" class="btn  btn-outline-secondary" type="button" id="button-addon2">identifier</button>
+                <datalist id="datalistOptions">
+                  {% for identite in identite %}
+                  <option >{{identite}}</option>
+                  {% endfor %}
+                </datalist>
+                <label for="floatingSelect" class="form-label">Lieu</label>
+              </div>
+            </form>  
+
+          </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
 </body>
 </html>

@@ -16,6 +16,10 @@ import pandas as pd
 import tensorflow as tf
 from face.utils import LRN2D, load_weights
 import face.utils as utils
+# Import essential libraries
+import requests
+import imutils
+  
 
 np.set_printoptions(2**31-1)
 #cette référence devrait probablement simplement utiliser une valeur raisonnable pour le seuil
@@ -337,7 +341,7 @@ def create_input_image_embeddings(model):
 def recognize_faces_in_cam(input_embeddings,model):
     
 
-    cv2.namedWindow("Face Recognizer")
+    # cv2.namedWindow("Face Recognizer")
     vc = cv2.VideoCapture(0)
    
 
@@ -366,38 +370,171 @@ def recognize_faces_in_cam(input_embeddings,model):
             y2 = y+h
 
            
-            
+            loading = "loading..."
             face_image = frame[max(0, y1):min(height, y2), max(0, x1):min(width, x2)]    
             identity = recognize_face(face_image, input_embeddings, model)
-            
-            
+            img = cv2.rectangle(frame,(x1, y1),(x2, y2),(255,255,255),2)
+            cv2.putText(img, str(loading), (x1+5,y1-5), font, 1, (255,255,255), 2)
 
             if identity is not None:
-                img = cv2.rectangle(frame,(x1, y1),(x2, y2),(255,255,255),2)
-                cv2.putText(img, str(identity), (x1+5,y1-5), font, 1, (255,255,255), 2)
+                # img = cv2.rectangle(frame,(x1, y1),(x2, y2),(255,255,255),2)
+                # cv2.putText(img, str(identity), (x1+5,y1-5), font, 1, (255,255,255), 2)
                 vc.release()
                 cv2.destroyAllWindows()
                 return identity
         
         key = cv2.waitKey(100)
-        cv2.imshow("Face Recognizer", img)
+        cv2.imshow("reconnaissance faciale", img)
 
         if key == 27: # exit on ESC
             break
     vc.release()
     cv2.destroyAllWindows()
 
+def streamVideo(input_embeddings,model,src):
+    cv2.namedWindow("reconnaissance faciale")
+    vc = cv2.VideoCapture(src)
+    face_cascade=cv2.CascadeClassifier('face/static/assets/model/haarcascade_frontalface_default.xml')
+    font = cv2.FONT_HERSHEY_SIMPLEX # Le type de police pour écrire sur une image 
+    while True:
+        ret , frame = vc.read()
+        if ret == False:
+            vc.release()
+            break
+        img = frame
+        height, width, channels = frame.shape
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+        # Loop through all the faces detected 
+        identities = []
+        for (x, y, w, h) in faces:
+            x1 = x
+            y1 = y
+            x2 = x+w
+            y2 = y+h
+            loading = "loading..."
+            face_image = frame[max(0, y1):min(height, y2), max(0, x1):min(width, x2)]    
+            identity = recognize_face(face_image, input_embeddings, model)
+            img = cv2.rectangle(frame,(x1, y1),(x2, y2),(255,255,255),2)
+            cv2.putText(img, str(loading), (x1+5,y1-5), font, 1, (255,255,255), 2)
+            if identity is not None:
+                # img = cv2.rectangle(frame,(x1, y1),(x2, y2),(255,255,255),2)
+                # cv2.putText(img, str(identity), (x1+5,y1-5), font, 1, (255,255,255), 2)
+                vc.release()
+                cv2.destroyAllWindows()
+                return identity
+        # frame = cv2.resize(frame, (600, 300))     
+        cv2.imshow('reconnaissance faciale',cv2.pyrDown(frame))
+        key = cv2.waitKey(10)
+        if key == 27: # exit on ESC
+            break
+    vc.release()
+    cv2.destroyAllWindows()
 
-def main():
+
+def streamImage(input_embeddings,model,src):
+    cv2.namedWindow("reconnaissance faciale")
+    frame = cv2.imread(src)
+    face_cascade=cv2.CascadeClassifier('face/static/assets/model/haarcascade_frontalface_default.xml')
+    font = cv2.FONT_HERSHEY_SIMPLEX # Le type de police pour écrire sur une image 
+    while True:
+        img = frame
+        height, width, channels = frame.shape
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+        # Loop through all the faces detected 
+        identities = []
+        for (x, y, w, h) in faces:
+            x1 = x
+            y1 = y
+            x2 = x+w
+            y2 = y+h
+            loading = "loading..."
+            face_image = frame[max(0, y1):min(height, y2), max(0, x1):min(width, x2)]    
+            identity = recognize_face(face_image, input_embeddings, model)
+            img = cv2.rectangle(frame,(x1, y1),(x2, y2),(255,255,255),2)
+            cv2.putText(img, str(loading), (x1+5,y1-5), font, 1, (255,255,255), 2)
+            if identity is not None:
+                # img = cv2.rectangle(frame,(x1, y1),(x2, y2),(255,255,255),2)
+                # cv2.putText(img, str(identity), (x1+5,y1-5), font, 1, (255,255,255), 2)
+
+                cv2.destroyAllWindows()
+                return identity
+        # frame = cv2.resize(frame, (600, 300))     
+        cv2.imshow('reconnaissance faciale',cv2.pyrDown(frame))
+        key = cv2.waitKey(10)
+        if key == 27: # exit on ESC
+            break
+
+    cv2.destroyAllWindows()
+
+
+def streamVideoPhone(input_embeddings,model):
+    cv2.namedWindow("reconnaissance faciale")
+    face_cascade=cv2.CascadeClassifier('face/static/assets/model/haarcascade_frontalface_default.xml')
+    font = cv2.FONT_HERSHEY_SIMPLEX # Le type de police pour écrire sur une image 
+    # Replace the below URL with your own. Make sure to add "/shot.jpg" at last.
+    url = "http://192.168.195.98:8080/shot.jpg"
+    while True:
+        img_resp = requests.get(url)
+        img_arr = np.array(bytearray(img_resp.content), dtype=np.uint8)
+        img = cv2.imdecode(img_arr, -1)
+        frame = img
+        height, width, channels = frame.shape
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+        # Loop through all the faces detected 
+        identities = []
+        for (x, y, w, h) in faces:
+            x1 = x
+            y1 = y
+            x2 = x+w
+            y2 = y+h
+            loading = "loading..."
+            face_image = frame[max(0, y1):min(height, y2), max(0, x1):min(width, x2)]    
+            identity = recognize_face(face_image, input_embeddings, model)
+            img = cv2.rectangle(frame,(x1, y1),(x2, y2),(255,255,255),2)
+            cv2.putText(img, str(loading), (x1+5,y1-5), font, 1, (255,255,255), 2)
+            if identity is not None:
+                # img = cv2.rectangle(frame,(x1, y1),(x2, y2),(255,255,255),2)
+                # cv2.putText(img, str(identity), (x1+5,y1-5), font, 1, (255,255,255), 2)
+                cv2.destroyAllWindows()
+                return identity
+        # frame = cv2.resize(frame, (600, 300))     
+        cv2.imshow('reconnaissance faciale',cv2.pyrDown(frame))
+        key = cv2.waitKey(10)
+        if key == 27: # exit on ESC
+            break
+    cv2.destroyAllWindows()
+
+print("creation du modele")
+model = createModel()
+print("modele cree")
+print("chargement des poids")
+loadweights = loadWeights(model)
+print("poids chargés")
+print("creation des vecteur d'intégration")
+input_embeddings = create_input_image_embeddings(model)
+print("fin de création")
+def main(src="",type=""):
     print("----------------------------start------------------------------------------")
-    print("creation du modele")
-    model = createModel()
-    print("modele cree")
-    print("chargement des poids")
-    loadweights = loadWeights(model)
-    print("poids chargés")
-    print("creation des vecteur d'intégration")
-    input_embeddings = create_input_image_embeddings(model)
-    print("fin de création")
+    # print("creation du modele")
+    # model = createModel()
+    # print("modele cree")
+    # print("chargement des poids")
+    # loadweights = loadWeights(model)
+    # print("poids chargés")
+    # print("creation des vecteur d'intégration")
+    # input_embeddings = create_input_image_embeddings(model)
+    # print("fin de création")
     print("face reconition")
-    return recognize_faces_in_cam(input_embeddings,model)
+    if src!="" and type=="video":
+        return streamVideo(input_embeddings,model,src)
+    else:
+        if src!="" and type=="image":
+            return streamImage(input_embeddings,model,src)
+        else:
+            if src!="" and type=="phone":
+                return streamVideoPhone(input_embeddings,model)
+            else:
+                return recognize_faces_in_cam(input_embeddings,model)

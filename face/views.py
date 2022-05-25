@@ -1,5 +1,7 @@
 from cgitb import reset
+from genericpath import exists
 import re
+from tkinter import Frame
 from django.shortcuts import render,redirect
 import cv2
 import shutil
@@ -24,16 +26,60 @@ import face.faceReconizer as fr
 
 
 def start(request):
-    return render(request, 'start.html')
+    identite = Identite.objects.all()
+    if request.method == 'POST':
+        name=request.POST['name']
+        identite = Identite.objects.filter(name=name).get()   
+        return render(request,'result.html',{'identite':identite})
+    return render(request, 'start.html',{'identite':identite})
 
 def choice(request):
     if request.method == 'POST':
-        name=fr.main()
-        name=name[:-1].split("_")
-        name= " ".join(name)
-        identite = Identite.objects.filter(name=name).get()
-        #image= identite.image1    
-        return render(request,'result.html',{'identite':identite})
+        dic = request.POST
+        print(request.POST)
+        if 'video' in dic:
+            name=fr.main(src=str(request.POST['video']),type='video')
+            if name!=None:
+                name=name[:-1].split("_")
+                name= " ".join(name)
+                identite = Identite.objects.filter(name=name).get()
+                    #image= identite.image1    
+                return render(request,'result.html',{'identite':identite})
+        else:
+            if 'image' in dic:
+                name=fr.main(src=str(request.POST['image']),type='image')
+                if name!=None:
+                    name=name[:-1].split("_")
+                    name= " ".join(name)
+                    identite = Identite.objects.filter(name=name).get()
+                    #image= identite.image1    
+                    return render(request,'result.html',{'identite':identite})
+            else:
+                if 'phone' in dic:
+                    name=fr.main(src="phone",type='phone')
+                    if name!=None:
+                        name=name[:-1].split("_")
+                        name= " ".join(name)
+                        identite = Identite.objects.filter(name=name).get()
+                        #image= identite.image1    
+                        return render(request,'result.html',{'identite':identite})
+                else:
+                    name=fr.main() 
+                    if name!=None:
+                        name=name[:-1].split("_")
+                        name= " ".join(name)
+                        identite = Identite.objects.filter(name=name).get()
+                        #image= identite.image1        
+                    return render(request,'result.html',{'identite':identite})
+
+    # if request.method == 'POST':
+    #     name=fr.main() 
+    #     name=name[:-1].split("_")
+    #     name= " ".join(name)
+    #     identite = Identite.objects.filter(name=name).get()
+    #     #image= identite.image1    
+    #     return render(request,'result.html',{'identite':identite})
+    # fr.main(src="E:/tuto/angular/1.mp4")
     return render(request, 'choice.html')
 
 

@@ -25,18 +25,39 @@
   
       <div class="container-fluid">
   
-          <div class="cont">
-            <h3>Veuillez sélectionner la source de la vidéo</h3>
-            <div class="parent-div">
-              <button class="btn-upload btn btn-primary"><i class="bi bi-image-fill"></i> Galerie</button>
-              <input type="file" name="video" accept="video/*" >
-            </div>
+          <div style="margin-top: 70px;" class="left">
+            <h3 >Veuillez sélectionner la source de la vidéo</h3>
+
+            <form action="" method="post">
+              {% csrf_token %}
+              <div class="input-group mb-3">
+                <input type="url" class="form-control" name="video"  placeholder="url de la video" aria-label="url de la video" aria-describedby="button-addon2">
+                <button style="background-color:#051e34; color:white;"   type="submit" id="purple" class="btn  btn-outline-secondary" type="button" id="button-addon2">identifier</button>
+              </div> 
+            </form>   
+
+            <form action="" method="post">
+              {% csrf_token %}
+              <div class="input-group mb-3">
+                <input type="url" class="form-control" name="image" placeholder="url de l'image" aria-label="url de l'image" aria-describedby="button-addon2">
+                <button style="background-color:#051e34; color:white;"   type="submit" id="purple" class="btn  btn-outline-secondary" type="button" id="button-addon2">identifier</button>
+              </div> 
+            </form>   
+                                
             <div class="parent-div">
               <form action="" method="post">
                 {% csrf_token %}
-                <button type="submit" class="btn-upload btn btn-primary"><i class="bi bi-camera-fill"></i> Camera</button>
+                <button style="background-color:#051e34; color:white; width: 100%;"  id="purple" type="submit" class="btn-upload btn btn-primary"><i class="bi bi-camera-fill"></i> Camera</button>
               </form>
               <!-- <input type="file" name="video" accept="video/*" capture>  -->
+            </div>
+            <br>
+            <div class="parent-div">
+              <form action="" method="post">
+                {% csrf_token %}
+                <button name="phone" style="background-color:#051e34; color:white; width: 100%;"  id="purple" type="submit" class="btn-upload btn btn-primary"><i class="bi bi-camera-fill"></i> Camera phone</button>
+                <!-- <input type="text" name="phone" value="phone" capture> -->
+              </form>
             </div>
           </div>
         <div class="img">
