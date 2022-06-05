@@ -322,7 +322,7 @@ def recognize_face(face_image, input_embeddings, model):
             minimum_distance = euclidean_distance
             name = input_name
     
-    if minimum_distance < 0.5:
+    if minimum_distance < 0.3:
         return str(name)
     else:
         return None

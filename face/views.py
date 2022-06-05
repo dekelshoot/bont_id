@@ -106,6 +106,7 @@ def add(request):
             image2= rename(identite,identite.image2,2),
             image3= rename(identite,identite.image3,3),
             )
+            fr.input_embeddings=fr.create_input_image_embeddings(fr.model)
             return redirect("start")
         print(form.errors)
     return render(request, 'add.html')
